@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contribute — The Field Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">The <span>Field</span> Report</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="briefs.html">Briefs</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contribute.html" class="active">Contribute</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-header">
+  <h1>Contribute a Brief</h1>
+  <p>Open to all NYU School of Public Health students. Bring your country, your concentration, and a paper you found interesting.</p>
+</div>
+
+<div class="section section-white">
+  <div class="section-inner">
+    <div class="contribute-grid">
+
+      <!-- LEFT: INFO -->
+      <div class="contribute-info">
+        <h3>What we're looking for</h3>
+        <p>We publish one brief every two weeks, rotating across countries and concentrations. We are especially interested in papers from countries underrepresented in US public health literature.</p>
+        <p>You will need:</p>
+        <ul>
+          <li>A peer-reviewed paper in any public health area</li>
+          <li>400–600 words of clear, non-specialist writing</li>
+          <li>One visualization or tool output</li>
+          <li>A connection to your concentration</li>
+          <li>A brief "US context" paragraph at the end</li>
+        </ul>
+
+        <br>
+        <h3>The process</h3>
+        <p>Submit your interest below. The editor will confirm your slot, connect you with a faculty reviewer in your department, and guide you through submission. Most briefs take 2–3 hours to write once you have your paper.</p>
+
+        <br>
+        <h3>What you get</h3>
+        <p>Your brief is published on The Field Report with your name, program, and faculty reviewer credited. It is a real, faculty-reviewed writing sample you can use in job applications and graduate school admissions — something most students leave school without.</p>
+
+        <br>
+        <p style="font-size:13px;color:var(--muted);">Direct questions to <strong>[your.email@nyu.edu]</strong></p>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div>
+        <div id="formWrap">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="fname" placeholder="Your full name">
+          </div>
+          <div class="form-group">
+            <label>NYU Email</label>
+            <input type="email" id="femail" placeholder="netid@nyu.edu">
+          </div>
+          <div class="form-group">
+            <label>Program</label>
+            <input type="text" id="fprogram" placeholder="MPH, MS, DrPH…">
+          </div>
+          <div class="form-group">
+            <label>Concentration</label>
+            <select id="fconc">
+              <option value="">Select your concentration</option>
+              <option>Epidemiology</option>
+              <option>Health Policy & Management</option>
+              <option>Oral Health</option>
+              <option>Global Health</option>
+              <option>Environmental Health Sciences</option>
+              <option>Social & Behavioral Sciences</option>
+              <option>Biostatistics</option>
+              <option>Community Health</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Country of interest for your brief</label>
+            <input type="text" id="fcountry" placeholder="Which country would your brief cover?">
+          </div>
+          <div class="form-group">
+            <label>Writer type</label>
+            <select id="ftype">
+              <option value="">Select one</option>
+              <option>Regular contributor (consistent cadence)</option>
+              <option>Seasonal contributor (specific semester only)</option>
+              <option>One-time contributor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell us about the paper you have in mind (optional)</label>
+            <textarea id="fmessage" placeholder="Paper title, topic, why it interests you — anything helps."></textarea>
+          </div>
+          <button class="btn-primary" onclick="submitForm()">Submit Interest →</button>
+          <div class="form-success" id="formSuccess">
+            ✓ Thank you — we will be in touch within a few days to confirm your slot and connect you with a faculty reviewer.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">The <span>Field</span> Report</div>
+    <div class="footer-info">Editor-in-Chief: <strong>[Your Name]</strong> · NYU School of Public Health</div>
+    <div class="footer-disclaimer">Briefs represent student academic work, faculty reviewed. Not peer-reviewed journal publications.</div>
+  </div>
+</footer>
+
+<script>
+  function submitForm() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    if (!name || !email) {
+      alert('Please enter your name and NYU email at minimum.');
+      return;
+    }
+    // In production: replace with a Formspree endpoint or EmailJS call
+    // e.g. fetch('https://formspree.io/f/YOUR_ID', { method:'POST', body: formData })
+    document.getElementById('formSuccess').style.display = 'block';
+    document.getElementById('fname').value = '';
+    document.getElementById('femail').value = '';
+    document.getElementById('fprogram').value = '';
+    document.getElementById('fconc').value = '';
+    document.getElementById('fcountry').value = '';
+    document.getElementById('ftype').value = '';
+    document.getElementById('fmessage').value = '';
+    window.scrollTo({ top: document.getElementById('formSuccess').offsetTop - 100, behavior: 'smooth' });
+  }
+
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+</script>
+</body>
+</html>

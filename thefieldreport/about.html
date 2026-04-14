@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — The Field Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">The <span>Field</span> Report</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="briefs.html">Briefs</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contribute.html">Contribute</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-header">
+  <h1>About The Field Report</h1>
+  <p>A student-led initiative bridging the gap between classroom knowledge and global public health practice.</p>
+</div>
+
+<!-- ABOUT BLOCKS -->
+<div class="section section-white">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-block">
+        <h3>The problem we're solving</h3>
+        <p>Public health students graduate with academic knowledge but few applied writing samples, limited experience with real-world tools, and a curriculum that is overwhelmingly American in its focus — despite working in a global field. Most students complete their degree without a single published piece of professional writing.</p>
+      </div>
+      <div class="about-block">
+        <h3>How it works</h3>
+        <p>Every two weeks, one student selects a peer-reviewed paper from a country of their choosing, connects it to their concentration, and translates the findings for a non-specialist audience using a job-relevant tool — Power BI, Tableau, GIS, R, and more. A faculty member reviews the draft before publication.</p>
+      </div>
+      <div class="about-block">
+        <h3>Why the global map</h3>
+        <p>The interactive map on our homepage shows every country a brief has been written about. It is a live record of the platform's global reach — and a signal of where we still need to go. Every empty region is an invitation for the next writer.</p>
+      </div>
+      <div class="about-block">
+        <h3>What writers get out of it</h3>
+        <p>A published, faculty-reviewed writing sample attributed to them by name. Hands-on experience with tools employers actually use. A global perspective that goes beyond US-centric public health education. And something real to show when applying for jobs or graduate programs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDER -->
+<div class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="section-label">Leadership</div>
+    <div class="section-title">The <span>Founder</span></div>
+    <div class="team-grid" style="max-width:280px;">
+      <div class="team-card">
+        <div class="team-avatar">[I]</div>
+        <h4>[Your Name]</h4>
+        <div class="role">Founder · Editor-in-Chief</div>
+        <div class="prog">[Program] · NYU School of Public Health</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;">
+          [A sentence or two about why you started this and what drives you. Keep it personal and genuine.]
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WRITERS -->
+<div class="section section-white">
+  <div class="section-inner">
+    <div class="section-label">Contributors</div>
+    <div class="section-title">Our <span>Writers</span></div>
+    <div class="team-grid" id="writersGrid"></div>
+  </div>
+</div>
+
+<!-- FACULTY -->
+<div class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="section-label">Academic Oversight</div>
+    <div class="section-title">Faculty <span>Reviewers</span></div>
+    <p style="color:var(--muted);margin-bottom:32px;max-width:560px;">Every brief is reviewed by a faculty member in the relevant department before publication. Their names appear alongside each published brief.</p>
+    <div class="team-grid" id="facultyGrid"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">The <span>Field</span> Report</div>
+    <div class="footer-info">Editor-in-Chief: <strong>[Your Name]</strong> · NYU School of Public Health</div>
+    <div class="footer-disclaimer">Briefs represent student academic work, faculty reviewed. Not peer-reviewed journal publications.</div>
+  </div>
+</footer>
+
+<script src="js/briefs.js"></script>
+<script>
+  const writers = [
+    { name: "[Writer Name]", role: "Regular Writer", prog: "MPH, Oral Health", country: "India" },
+    { name: "[Writer Name]", role: "Regular Writer", prog: "MPH, Health Policy", country: "Nigeria" },
+    { name: "[Writer Name]", role: "Seasonal Writer", prog: "MPH, Epidemiology", country: "Kenya" },
+    { name: "[Writer Name]", role: "Regular Writer", prog: "MPH, Oral Health", country: "Brazil" },
+    { name: "[Writer Name]", role: "Seasonal Writer", prog: "MPH, Health Policy", country: "US" },
+  ];
+  const faculty = [
+    { name: "[Faculty Name]", dept: "Dept. of Oral Health" },
+    { name: "[Faculty Name]", dept: "Dept. of Epidemiology" },
+    { name: "[Faculty Name]", dept: "Dept. of Health Policy & Management" },
+    { name: "[Faculty Name]", dept: "Dept. of Global Health" },
+  ];
+
+  document.getElementById('writersGrid').innerHTML = writers.map(w => `
+    <div class="team-card">
+      <div class="team-avatar">${w.name.charAt(1) || 'W'}</div>
+      <h4>${w.name}</h4>
+      <div class="role">${w.role}</div>
+      <div class="prog">${w.prog}</div>
+      <div class="prog" style="margin-top:4px;color:var(--accent);">Country focus: ${w.country}</div>
+    </div>`).join('');
+
+  document.getElementById('facultyGrid').innerHTML = faculty.map(f => `
+    <div class="faculty-card">
+      <h4>${f.name}</h4>
+      <div class="dept">${f.dept} · NYU</div>
+    </div>`).join('');
+
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief — The Field Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">The <span>Field</span> Report</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="briefs.html" class="active">Briefs</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contribute.html">Contribute</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="brief-back">
+  <a href="briefs.html">← Back to all briefs</a>
+</div>
+
+<div id="briefContent">
+  <div style="padding:80px 48px;text-align:center;color:var(--muted);">Loading brief…</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">The <span>Field</span> Report</div>
+    <div class="footer-info">Editor-in-Chief: <strong>[Your Name]</strong> · NYU School of Public Health</div>
+    <div class="footer-disclaimer">Briefs represent student academic work, faculty reviewed. Not peer-reviewed journal publications.</div>
+  </div>
+</footer>
+
+<script src="js/briefs.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const brief = BRIEFS.find(b => b.id === id);
+
+  if (!brief) {
+    document.getElementById('briefContent').innerHTML = `
+      <div style="padding:80px 48px;text-align:center;">
+        <h2 style="font-family:'Playfair Display',serif;margin-bottom:16px;">Brief not found</h2>
+        <p style="color:var(--muted);margin-bottom:24px;">This brief may have been moved or does not exist.</p>
+        <a class="btn-primary" href="briefs.html">← View all briefs</a>
+      </div>`;
+  } else {
+    document.title = `${brief.title} — The Field Report`;
+
+    // Build content blocks
+    const blocks = brief.content.map(block => {
+      if (block.type === 'p') return `<p>${block.text}</p>`;
+      if (block.type === 'h3') return `<h3>${block.text}</h3>`;
+      if (block.type === 'viz') return `<div class="viz-block">📊 ${block.text}</div>`;
+      if (block.type === 'us') return `<div class="us-context"><h4>US Context</h4><p>${block.text}</p></div>`;
+      return '';
+    }).join('');
+
+    document.getElementById('briefContent').innerHTML = `
+      <div class="brief-hero">
+        <div class="card-tags">
+          <span class="card-country">${brief.country}</span>
+          <span class="card-conc">${brief.concentration}</span>
+        </div>
+        <h1>${brief.title}</h1>
+        <div class="brief-meta-pills">
+          <span class="meta-pill">${brief.date}</span>
+          <span class="meta-pill">Tool: ${brief.tool}</span>
+        </div>
+      </div>
+      <div class="brief-body">
+        <div class="brief-byline">
+          <div class="byline-block">
+            <div class="lbl">Written by</div>
+            <strong>${brief.author}</strong>
+            <small>${brief.program} · NYU School of Public Health</small>
+          </div>
+          <div class="byline-block">
+            <div class="lbl">Reviewed by</div>
+            <strong>${brief.reviewer}</strong>
+            <small>${brief.dept} · NYU</small>
+          </div>
+        </div>
+        <a class="source-link" href="#" target="_blank" rel="noopener">↗ View original paper</a>
+        ${blocks}
+        <div class="brief-disclaimer">
+          This brief represents student academic work and has been reviewed by a faculty member in the relevant department. It is not a peer-reviewed journal publication. Readers are encouraged to consult the original source for full methodology and findings.
+        </div>
+      </div>`;
+  }
+
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+</script>
+</body>
+</html>

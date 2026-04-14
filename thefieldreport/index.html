@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Field Report — Global Public Health, Translated</title>
+<meta name="description" content="A student-led platform where NYU public health students translate global research into accessible, skills-based writing. Biweekly. Faculty reviewed.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  @keyframes pulsePing {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.6); opacity: 0.3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">The <span>Field</span> Report</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="briefs.html">Briefs</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contribute.html">Contribute</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner fade-up">
+    <div class="hero-tag">NYU School of Public Health · Student Initiative</div>
+    <h1>Global public health,<br><em>translated.</em></h1>
+    <p class="hero-sub">Biweekly research briefs. Written by students. Reviewed by faculty.</p>
+    <p class="hero-desc">Public health education is largely American. The research shaping the rest of the world rarely makes it into our classrooms — and when it does, it is rarely made accessible to people outside the field. The Field Report changes that.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="briefs.html">Read the Latest</a>
+      <a class="btn-secondary" href="about.html">About the Project</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip" id="statsStrip">
+  <div class="stat-item"><span class="stat-num" id="statBriefs">0</span><span class="stat-label">Briefs Published</span></div>
+  <div class="stat-item"><span class="stat-num" id="statCountries">0</span><span class="stat-label">Countries Covered</span></div>
+  <div class="stat-item"><span class="stat-num" id="statWriters">5</span><span class="stat-label">Student Writers</span></div>
+  <div class="stat-item"><span class="stat-num" id="statFaculty">4</span><span class="stat-label">Faculty Reviewers</span></div>
+</div>
+
+<!-- MAP -->
+<div class="section section-dark">
+  <div class="section-inner">
+    <div class="section-label">Global Reach</div>
+    <div class="section-title">Where we're <span style="color:var(--accent-light)">reporting from</span></div>
+    <div class="map-wrap">
+      <div class="map-tooltip" id="mapTooltip"></div>
+      <svg id="world-map" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot"></div>1 brief published</div>
+      <div class="legend-item"><div class="legend-dot multi"></div>2+ briefs published</div>
+      <div class="legend-item" style="margin-left:auto;color:#4a5568;font-size:11px;font-style:italic;">Hover to preview · Click to explore briefs from that country</div>
+    </div>
+  </div>
+</div>
+
+<!-- LATEST BRIEFS -->
+<div class="section section-white">
+  <div class="section-inner">
+    <div class="section-label">Latest Briefs</div>
+    <div class="section-title">Recent <span>publications</span></div>
+    <div class="cards-grid" id="latestCards"></div>
+    <div style="margin-top:36px;">
+      <a class="btn-primary" href="briefs.html">View all briefs →</a>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section" style="background:var(--paper);">
+  <div class="section-inner">
+    <div class="section-label">The Process</div>
+    <div class="section-title">How it <span>works</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:32px;">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--accent);font-weight:700;margin-bottom:12px;">01</div>
+        <h4 style="font-size:15px;font-weight:600;margin-bottom:8px;">Select a paper</h4>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;">A student picks a peer-reviewed paper from any country — often one connected to their own background or interests.</p>
+      </div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--accent);font-weight:700;margin-bottom:12px;">02</div>
+        <h4 style="font-size:15px;font-weight:600;margin-bottom:8px;">Write the brief</h4>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;">400–600 words connecting the research to their concentration, using a job-relevant tool — Power BI, Tableau, GIS, and more.</p>
+      </div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--accent);font-weight:700;margin-bottom:12px;">03</div>
+        <h4 style="font-size:15px;font-weight:600;margin-bottom:8px;">Faculty review</h4>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;">A faculty member in the relevant department reviews for accuracy before the brief is published.</p>
+      </div>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:36px;color:var(--accent);font-weight:700;margin-bottom:12px;">04</div>
+        <h4 style="font-size:15px;font-weight:600;margin-bottom:8px;">Published portfolio</h4>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;">The student's name, program, and faculty reviewer are credited publicly — a real writing sample for job applications.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">The <span>Field</span> Report</div>
+    <div class="footer-info">Editor-in-Chief: <strong>[Your Name]</strong> · NYU School of Public Health</div>
+    <div class="footer-disclaimer">Briefs represent student academic work, faculty reviewed. Not peer-reviewed journal publications.</div>
+  </div>
+</footer>
+
+<script src="js/briefs.js"></script>
+<script src="js/map.js"></script>
+<script>
+  // Stats
+  document.getElementById('statBriefs').textContent = BRIEFS.length;
+  document.getElementById('statCountries').textContent = new Set(BRIEFS.map(b => b.country)).size;
+
+  // Latest 3 cards
+  function makeCard(b) {
+    return `<a class="brief-card" href="brief.html?id=${b.id}">
+      <div class="card-tags">
+        <span class="card-country">${b.country}</span>
+        <span class="card-conc">${b.concentration}</span>
+      </div>
+      <div class="card-title">${b.title}</div>
+      <div class="card-excerpt">${b.excerpt}</div>
+      <div class="card-meta">
+        <div>
+          <div class="card-author">${b.author}</div>
+          <div class="card-date">${b.date}</div>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>`;
+  }
+  document.getElementById('latestCards').innerHTML = BRIEFS.slice(0,3).map(makeCard).join('');
+
+  // Map — clicking a pin filters briefs page by country
+  drawWorldMap('world-map', 'mapTooltip', (country, briefs) => {
+    window.location.href = `briefs.html?country=${encodeURIComponent(country)}`;
+  });
+
+  // Mobile nav
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

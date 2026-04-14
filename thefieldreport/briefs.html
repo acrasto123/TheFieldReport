@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Briefs — The Field Report</title>
+<meta name="description" content="Browse all published public health research briefs from The Field Report. Filter by country or concentration.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">The <span>Field</span> Report</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="briefs.html" class="active">Briefs</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contribute.html">Contribute</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-header">
+  <h1>All Briefs</h1>
+  <p>Global public health research, translated by NYU students. Filter by country or concentration.</p>
+</div>
+
+<div class="filters-bar" id="filtersBar">
+  <span class="filter-label">Country</span>
+  <button class="filter-btn active" data-type="country" data-value="all" onclick="setFilter('country','all',this)">All</button>
+  <div id="countryFilters"></div>
+  <div class="filter-sep"></div>
+  <span class="filter-label">Concentration</span>
+  <button class="filter-btn active" data-type="conc" data-value="all" onclick="setFilter('conc','all',this)">All</button>
+  <div id="concFilters"></div>
+</div>
+
+<div class="section section-white">
+  <div class="section-inner">
+    <div style="margin-bottom:16px;font-size:13px;color:var(--muted);" id="resultsCount"></div>
+    <div class="cards-grid" id="allCards"></div>
+    <div class="no-results" id="noResults" style="display:none;">No briefs match this filter yet. Check back soon.</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">The <span>Field</span> Report</div>
+    <div class="footer-info">Editor-in-Chief: <strong>[Your Name]</strong> · NYU School of Public Health</div>
+    <div class="footer-disclaimer">Briefs represent student academic work, faculty reviewed. Not peer-reviewed journal publications.</div>
+  </div>
+</footer>
+
+<script src="js/briefs.js"></script>
+<script>
+  let activeCountry = 'all';
+  let activeConc = 'all';
+
+  // Build filter buttons from data
+  document.getElementById('countryFilters').innerHTML = COUNTRIES.map(c =>
+    `<button class="filter-btn" data-type="country" data-value="${c}" onclick="setFilter('country','${c}',this)">${c}</button>`
+  ).join('');
+  document.getElementById('concFilters').innerHTML = CONCENTRATIONS.map(c =>
+    `<button class="filter-btn" data-type="conc" data-value="${c}" onclick="setFilter('conc','${c}',this)">${c}</button>`
+  ).join('');
+
+  function setFilter(type, value, btn) {
+    if (type === 'country') {
+      activeCountry = value;
+      document.querySelectorAll('[data-type="country"]').forEach(b => b.classList.toggle('active', b === btn));
+    } else {
+      activeConc = value;
+      document.querySelectorAll('[data-type="conc"]').forEach(b => b.classList.toggle('active', b === btn));
+    }
+    renderCards();
+  }
+
+  function makeCard(b) {
+    return `<a class="brief-card" href="brief.html?id=${b.id}">
+      <div class="card-tags">
+        <span class="card-country">${b.country}</span>
+        <span class="card-conc">${b.concentration}</span>
+      </div>
+      <div class="card-title">${b.title}</div>
+      <div class="card-excerpt">${b.excerpt}</div>
+      <div class="card-meta">
+        <div>
+          <div class="card-author">${b.author}</div>
+          <div class="card-date">${b.date}</div>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>`;
+  }
+
+  function renderCards() {
+    const filtered = BRIEFS.filter(b =>
+      (activeCountry === 'all' || b.country === activeCountry) &&
+      (activeConc === 'all' || b.concentration === activeConc)
+    );
+    const container = document.getElementById('allCards');
+    const noRes = document.getElementById('noResults');
+    const count = document.getElementById('resultsCount');
+    if (filtered.length === 0) {
+      container.innerHTML = '';
+      noRes.style.display = 'block';
+      count.textContent = '';
+    } else {
+      noRes.style.display = 'none';
+      container.innerHTML = filtered.map(makeCard).join('');
+      count.textContent = `Showing ${filtered.length} of ${BRIEFS.length} briefs`;
+    }
+  }
+
+  // Check URL for country param (from map pin click)
+  const params = new URLSearchParams(window.location.search);
+  const urlCountry = params.get('country');
+  if (urlCountry && COUNTRIES.includes(urlCountry)) {
+    activeCountry = urlCountry;
+    // Activate the right button after DOM is ready
+    setTimeout(() => {
+      const btn = [...document.querySelectorAll('[data-type="country"]')].find(b => b.dataset.value === urlCountry);
+      if (btn) {
+        document.querySelectorAll('[data-type="country"]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+    }, 0);
+  }
+
+  renderCards();
+
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+</script>
+</body>
+</html>
